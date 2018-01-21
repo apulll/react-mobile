@@ -16,7 +16,7 @@ export default class Interview extends React.Component {
 	      	<NavBar
 		      mode="light"
 		      icon={<Icon type="left" />}
-		      onLeftClick={() => console.log('onLeftClick')}
+		      onLeftClick={() => browserHistory.go('-1')}
 		    >NavBar
 		    </NavBar>
 	    </div>
@@ -29,7 +29,7 @@ export default class Interview extends React.Component {
 	          arrow="horizontal"
 	          thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
 	          multipleLine
-	          onClick={() => {browserHistory.push('/home')}}
+	          onClick={() => {browserHistory.push('/interview/detail')}}
 	          extra="555"
 	        >
 	          基本信息<Brief>subtitle</Brief>
