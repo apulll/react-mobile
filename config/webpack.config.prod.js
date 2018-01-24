@@ -1,5 +1,5 @@
 'use strict';
-
+const pxtorem = require('postcss-pxtorem');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
@@ -78,7 +78,7 @@ module.exports = {
     // We placed these paths second because we want `node_modules` to "win"
     // if there are any conflicts. This matches Node resolution mechanism.
     // https://github.com/facebookincubator/create-react-app/issues/253
-    modules: ['node_modules', paths.appNodeModules].concat(
+    modules: [paths.appSrc, 'node_modules', paths.appNodeModules].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
       process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
@@ -149,9 +149,59 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+              plugins: [
+                  ['import', { libraryName: 'antd-mobile', style: true }],
+              ],
               compact: true,
             },
+          },
+          // It is generally necessary to use the Icon component, need to configure svg-sprite-loader
+          {
+            test: /\.(svg)$/i,
+            loader: 'svg-sprite-loader',
+            include: [
+              require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. svg files of antd-mobile
+              path.resolve(__dirname, '../src/assets/svg'),  // folder of svg files in your project
+            ]
+          },
+          
+          {
+            test: /\.less$/,
+            loader: ExtractTextPlugin.extract(
+              Object.assign(
+                {
+                  fallback: {
+                    loader: require.resolve('style-loader'),
+                    options: {
+                      hmr: false,
+                    },
+                  },
+                  use: [
+                    'css-loader',
+                    {
+                      loader: 'postcss-loader',
+                      options: {
+                        ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+                        plugins: () => [
+                          autoprefixer({
+                            browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
+                          }),
+                          pxtorem({ rootValue: 100, propWhiteList: [] })
+                        ],
+                      },
+                    },
+                    {
+                      loader: 'less-loader',
+                      options: {
+                        modifyVars: { "@primary-color": "#1DA57A" },
+                      },
+                    },
+                  ],
+                },
+                extractTextPluginOptions
+              )
+            ),
+            // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.

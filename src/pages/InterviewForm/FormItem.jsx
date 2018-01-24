@@ -43,6 +43,7 @@ const Field = (props) => {
 				        })}
 				        mode="date"
 				        title={"选择日期"}
+
 				    >
 			        	<Item arrow="horizontal">{item.column_name}</Item>
 			      	</DatePicker>
@@ -52,8 +53,8 @@ const Field = (props) => {
 					<TextareaItem
 						style={{textAlign:'right'}}
 						{...getFieldProps(item.column_field, {initialValue:item.column_values})}
-						title={item.column_name}
-						placeholder=""
+						title="文本域"
+						placeholder="displayed clear while typing"
 						autoHeight
 						labelNumber={5}
 					/>

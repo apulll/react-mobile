@@ -4,9 +4,8 @@ import { browserHistory } from 'react-router';
 import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
-import FormItem from './FormItem';
+import FormItem from '../FormItem';
 import mockAxios from 'mocks';
-import fetch from 'utils/fetch'
 
 class Edit extends React.Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class Edit extends React.Component {
     }
   }
   componentDidMount() {
-    mockAxios.get('/api/basicInfo').then((res)=>{
+    mockAxios.get('/api/education').then((res)=>{
       this.setState({fieldDatas:res.data})
     })
   }
@@ -24,15 +23,9 @@ class Edit extends React.Component {
   onSubmit = ()=>{
     this.props.form.validateFields({ force: true }, (error, value) => {
       console.log(error,value,'aaa')
-      value.access_token = 'teNIPEZu7yPkyShnwoP9OpXwqw8HUF90jLVcDO5A'
-      fetch({
-        url:'http://hrmapi.local.com//Api/interview/fill/basic/1',
-        method:"put",
-        data:value,
+      mockAxios.put('/api/basicInfo/update').then((res)=>{
+        console.log(res,'res put')
       })
-      // mockAxios.put('/api/basicInfo/update').then((res)=>{
-      //   console.log(res,'res put')
-      // })
     });
   }
   render() {
@@ -40,7 +33,7 @@ class Edit extends React.Component {
     return (
       <div>
         <HNavBar 
-          title="基本信息编辑" 
+          title="教育经历编辑" 
           rightContent={
             [
               <span><HIcon type="save" /></span>

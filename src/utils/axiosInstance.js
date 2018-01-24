@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2017-12-25 14:47:36
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-22 17:59:55
+* @Last Modified time: 2018-01-23 17:32:53
 */
 import React from 'react';
 import axios from 'axios';
@@ -15,6 +15,7 @@ axiosInstance.interceptors.request.use(function (config) {
 	if (config.method=="post" || config.method=="patch" || config.method=="put"){
         config.data = qs.stringify(config.data);
         config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        // config.headers.Authorization = `Bearer teNIPEZu7yPkyShnwoP9OpXwqw8HUF90jLVcDO5A`;
     }
 	return config;
 }, function (error) {
@@ -33,33 +34,11 @@ axiosInstance.interceptors.response.use(function (response) {
 	// const status = error.response.status
 	console.log(error,'interceptors error=======')
 	console.log(error.response,'interceptors error response=======')
-	// if(status === 500) {
-	// 	notification.error({
-	// 		// icon:
-	// 		description:'服务器异常'
-	// 	})
-	// }
+	
 	if(error.response){
-		// switch (error.response.status) {
-	 //      case 401:
-	 //        // this.redirectTo(document, '/')
-	 //        break;
-	 //      case 404:
-	 //        // this.redirectTo(document, '/404')
-	 //        break;
-	 //      default:
-	 //        // this.redirectTo(document, '/500')
-	 //        break;
-	 //    }
-	 //  	return Promise.reject(error.response.data)
+		
 	}
 	
-    
-
-	// if(err.response) {
-	// 	console.log(error.response,'response error=======')
-	// }
-	// Do something with response error
 	return Promise.reject(error);
 });
 

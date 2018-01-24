@@ -6,8 +6,14 @@ const Brief = Item.Brief;
 
 export default class Interview extends React.Component {
   
-  state = {
-    disabled: false,
+  constructor(props) {
+	super(props)
+	this.state = {	
+
+	}
+  }
+  componentDidMount(){
+
   }
   render() {
     return (
@@ -40,7 +46,7 @@ export default class Interview extends React.Component {
 	          arrow="horizontal"
 	          thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
 	          multipleLine
-	          onClick={() => {}}
+	          onClick={() => {browserHistory.push('/educationexperience')}}
 	        >
 	          教育经历<Brief>subtitle</Brief>
 	        </Item>

@@ -1,8 +1,7 @@
 import React from 'react';
-import { NavBar, Icon, WingBlank, List, InputItem, Toast, Button } from 'antd-mobile';
+import { NavBar, Icon, Toast} from 'antd-mobile';
 import './app.less';
-const Item = List.Item;
-const Brief = Item.Brief;
+
 export default class App extends React.Component {
   
   state = {
@@ -31,14 +30,14 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-      	<div className='mq-nav-bar'>
+      	{/*<div className='mq-nav-bar'>
 	      	<NavBar
-		      mode="light"
-		      icon={<Icon type="left" />}
-		      onLeftClick={() => console.log('onLeftClick')}
-		    >NavBar
-		    </NavBar>
-	    </div>
+  		      mode="light"
+  		      icon={<Icon type="left" />}
+  		      onLeftClick={() => console.log('onLeftClick')}
+  		    >NavBar
+  		    </NavBar>
+	    </div>*/}
 	   	<div className="mq-container">
 	   		{this.props.children}
 	    </div>
