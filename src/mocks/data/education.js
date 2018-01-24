@@ -2,27 +2,23 @@
 * @Author: perry
 * @Date:   2018-01-23 11:47:25
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-23 13:39:57
+* @Last Modified time: 2018-01-24 16:52:39
 */
 export default [
 	{
         "id": 1,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "学校",
-        "column_field": "school",
+        "column_alias": "school",
         "column_type": "text",
         "column_length": 10,
-        "column_values": "1",
+        "column_values": "",
         "column_tips": "",
         "is_required": 1,
     },
     {
         "id": 2,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "专业",
-        "column_field": "major",
+        "column_alias": "major",
         "column_type": "text",
         "column_length": 10,
         "column_values": "",
@@ -31,10 +27,8 @@ export default [
     },
     {
         "id": 3,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "教育形式",
-        "column_field": "education_type",
+        "column_alias": "education_type",
         "column_type": "select",
         "column_length": 10,
         "column_values": "",
@@ -53,10 +47,8 @@ export default [
     },
 	{
         "id": 4,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "学历",
-        "column_field": "culture",
+        "column_alias": "culture",
         "column_type": "select",
         "column_length": 10,
         "column_values": "",
@@ -95,10 +87,8 @@ export default [
     },
     {
         "id": 5,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "学位",
-        "column_field": "degree",
+        "column_alias": "degree",
         "column_type": "select",
         "column_length": 10,
         "column_values": "",
@@ -125,10 +115,8 @@ export default [
     },
     {
         "id":6,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "学历编号",
-        "column_field": "culture_number",
+        "column_alias": "culture_number",
         "column_type": "text",
         "column_length": 10,
         "column_values": "",
@@ -137,10 +125,8 @@ export default [
     },
     {
         "id":7,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "学位编号",
-        "column_field": "degree_number",
+        "column_alias": "degree_number",
         "column_type": "text",
         "column_length": 10,
         "column_values": "",
@@ -149,10 +135,8 @@ export default [
     },
     {
         "id":8,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "开始日期",
-        "column_field": "start_at",
+        "column_alias": "start_at",
         "column_type": "date",
         "column_length": 10,
         "column_values": "",
@@ -161,10 +145,8 @@ export default [
     },
     {
         "id":9,
-        "template_module_id": 1,
-        "template_id": 5,
         "column_name": "结束日期",
-        "column_field": "end_at",
+        "column_alias": "end_at",
         "column_type": "date",
         "column_length": 10,
         "column_values": "",

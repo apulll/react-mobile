@@ -4,9 +4,12 @@ import { browserHistory } from 'react-router';
 import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
-import FormItem from './FormItem';
+import FormItem from '../FormItem';
 import mockAxios from 'mocks';
 import fetch from 'utils/fetch'
+import basicDetailData from 'mocks/data/basicInfoRes/detail'
+import basicOriginData from 'mocks/data/basicInfo'
+import { resDataFormat } from 'pages/InterviewForm/util'
 
 class Edit extends React.Component {
   constructor(props) {
@@ -19,6 +22,8 @@ class Edit extends React.Component {
     mockAxios.get('/api/basicInfo').then((res)=>{
       this.setState({fieldDatas:res.data})
     })
+    // const newData = resDataFormat(basicOriginData, basicDetailData.res.basic, basicDetailData.res.extends)
+    // this.setState({fieldDatas:newData})
   }
 
   onSubmit = ()=>{

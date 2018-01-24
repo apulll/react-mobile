@@ -5,6 +5,9 @@ import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
 import { isEmpty } from 'lodash';
 import mockAxios from 'mocks';
+import basicDetailData from 'mocks/data/basicInfoRes/detail'
+import basicOriginData from 'mocks/data/basicInfo'
+import { resDataFormat } from 'pages/InterviewForm/util'
 
 const Item = List.Item;
 
@@ -16,9 +19,12 @@ export default class Detail extends React.Component {
     }
   }
   componentDidMount() {
-    mockAxios.get('/api/basicInfo').then((res)=>{
-      this.setState({fieldDatas:res.data})
-    })
+    // mockAxios.get('/api/basicInfo').then((res)=>{
+    //   this.setState({fieldDatas:res.data})
+    // })
+    const newData = resDataFormat(basicOriginData, basicDetailData.res.basic, basicDetailData.res.extends)
+    this.setState({fieldDatas:newData})
+
   }
   render() {
     const {fieldDatas} = this.state;
@@ -28,7 +34,7 @@ export default class Detail extends React.Component {
           title="基本信息"
           rightContent={
             [
-              <Link to="/interview/edit"><HIcon type="edit" /></Link>
+              <Link to="/basic/edit"><HIcon type="edit" /></Link>
             ]
           }
         />

@@ -14,7 +14,7 @@ const Field = (props) => {
 		case 'text':
 			return (<InputItem
 						style={{textAlign:'right'}}
-			            {...getFieldProps(item.column_field, {
+			            {...getFieldProps(item.column_alias, {
 			              initialValue: item.column_values,
 			            })}
 			          >
@@ -26,7 +26,7 @@ const Field = (props) => {
 						style={{textAlign:'right'}}
 						className="hq-form-diy-select"
 			            extra={
-			            <select {...getFieldProps(item.column_field, {
+			            <select {...getFieldProps(item.column_alias, {
 				          initialValue: item.column_values,
 				        })}>{item.options.map((item, i) =><option key={i} value={item.field_value}>{item.field_label}</option>)}</select>}
 			            arrow="horizontal"
@@ -38,7 +38,7 @@ const Field = (props) => {
 			const dateParam = item.column_values ? new Date(item.column_values) : new Date();
 			return (
 					<DatePicker
-				        {...getFieldProps(item.column_field, {
+				        {...getFieldProps(item.column_alias, {
 				          initialValue: dateParam,
 				        })}
 				        mode="date"
@@ -52,9 +52,9 @@ const Field = (props) => {
 			return (
 					<TextareaItem
 						style={{textAlign:'right'}}
-						{...getFieldProps(item.column_field, {initialValue:item.column_values})}
-						title="文本域"
-						placeholder="displayed clear while typing"
+						{...getFieldProps(item.column_alias, {initialValue:item.column_values})}
+						title={item.column_name}
+						placeholder=""
 						autoHeight
 						labelNumber={5}
 					/>
@@ -72,46 +72,6 @@ const FormItem = (props) => {
   return (
     <div className="hq-form-item-field">
     	{!isEmpty(fieldData) ? fieldData.map((item, i) =><Field key={i} item={item} form={form}/>) : null}
-    	{/*<InputItem
-            {...getFieldProps('bankCard2', {
-              initialValue: '8888 8888 8888 8888',
-            })}
-            type="bankCard"
-          >
-          银行卡
-        </InputItem>
-        <DatePicker
-	        {...getFieldProps('keyValue', {
-	          initialValue: new Date('2017-11-11'),
-	        })}
-	        mode="date"
-	        title="选择日期"
-	    >
-        	<Item arrow="horizontal">时间</Item>
-      	</DatePicker>
-        <Item
-            extra={<select {...getFieldProps('keyValue2', {
-	          initialValue: '111',
-	        })}><option value="111">我是你你是我编码加快分解</option><option value="22">222</option></select>}
-            arrow="horizontal"
-            onClick={() => {}}
-        >
-        	My wallet
-        </Item>
-        <TextareaItem
-			{...getFieldProps('note3')}
-			title="高度自适应"
-			placeholder="displayed clear while typing"
-			autoHeight
-			labelNumber={5}
-		/>
-		<Item
-            extra={<InputItem type="file" {...getFieldProps('keyValue3',{})}></InputItem>}
-            arrow="horizontal"
-            onClick={() => {}}
-        >
-        	文件上传
-        </Item>*/}
     </div>
   )
 }

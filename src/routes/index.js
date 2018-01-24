@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-19 15:30:54
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-23 12:00:17
+* @Last Modified time: 2018-01-24 17:55:28
 */
 import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
@@ -25,9 +25,14 @@ export default ()=> (
         </Route>
         <Route path="/home" component={Home} />
         <Route path="/interview" component={Interview} />
-        <Route path="/interview/detail" component={InterviewDetail} />
-        <Route path="/interview/edit" component={InterviewEdit} />
-        <Route path="/educationexperience" component={EducationExperience} />
+        <Route path="/basic/detail/:template_id/:template_module_id" component={InterviewDetail} />
+        <Route path="/basic/edit" component={InterviewEdit} />
+
+        <Route path="/work/:template_id/:template_module_id" component={InterviewDetail} />
+        <Route path="/family/:template_id/:template_module_id" component={InterviewDetail} />
+        <Route path="/emergency/:template_id/:template_module_id" component={InterviewDetail} />
+
+        <Route path="/educationexperience/:template_id/:template_module_id" component={EducationExperience} />
         <Route path="/educationexperience/edit" component={EducationExperienceEdit} />
       </Route>
     </Route>
