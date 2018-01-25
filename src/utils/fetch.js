@@ -1,4 +1,3 @@
-import axios from 'axios';
 import axiosInstance from 'utils/axiosInstance';
 import { assign, cloneDeep } from 'lodash';
 
@@ -32,9 +31,7 @@ const localFetch = (options) => {
       return axiosInstance(options)
   }
 }
- // {
- //     // headers: {'x-access-token': localStorage.getItem('token')},
- //   }
+
  export default function fetch(options) {
  	 const opt = Object.assign(options)
    return localFetch(opt).then((response) => {

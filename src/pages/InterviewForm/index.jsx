@@ -1,10 +1,9 @@
 import React from 'react';
-import { List, WhiteSpace, NavBar, Icon, Button, WingBlank } from 'antd-mobile';
+import { List, WhiteSpace, Button, WingBlank } from 'antd-mobile';
 import { browserHistory } from 'react-router';
 import HNavBar from 'components/HNavBar';
 import InterviewContainer from './InterviewContainer';
 import mockAxios from 'mocks';
-import fetch from 'utils/fetch';
 import { isEmpty } from 'lodash';
 
 const Item = List.Item;
@@ -12,7 +11,7 @@ const Brief = Item.Brief;
 
 
 const routeFormatParams = {
-	basic:'/basic/detail',
+	basic:'/basic',
 	education:'/educationexperience',
 	work:'/work',
 	family:'/family',

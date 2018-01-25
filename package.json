@@ -62,7 +62,8 @@
     "less-loader": "^4.0.5",
     "postcss-pxtorem": "^4.0.1",
     "react-app-rewired": "^1.4.0",
-    "svg-sprite-loader": "0.3.1"
+    "svg-sprite-loader": "0.3.1",
+    "webpack-bundle-analyzer": "^2.9.2"
   },
   "jest": {
     "collectCoverageFrom": [

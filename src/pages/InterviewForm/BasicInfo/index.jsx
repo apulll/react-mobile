@@ -1,6 +1,5 @@
 import React from 'react';
-import { List, NavBar, Button, Icon, WingBlank, WhiteSpace } from 'antd-mobile';
-import { browserHistory } from 'react-router';
+import { List, Button, WingBlank, WhiteSpace } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
@@ -9,12 +8,12 @@ import FormItem from '../FormItem';
 import mockAxios from 'mocks';
 import fetch from 'utils/fetch';
 import { formatFormData } from 'utils';
-import basicDetailData from 'mocks/data/basicInfoRes/detail'
+
 import basicOriginData from 'mocks/data/basicInfo'
 import { resDataFormat, formErrorsMsg, defaultParams } from 'pages/InterviewForm/util'
 import { assign } from 'lodash';
 
-class Detail extends React.Component {
+class BasicInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state={
@@ -59,7 +58,7 @@ class Detail extends React.Component {
           title="基本信息编辑" 
           rightContent={
             [
-              <span><HIcon type="save" /></span>
+              <span key='5'><HIcon type="save" /></span>
             ]
           }
         />
@@ -81,4 +80,4 @@ class Detail extends React.Component {
   }
 }
 
-export default createForm()(Detail)
+export default createForm()(BasicInfo)
