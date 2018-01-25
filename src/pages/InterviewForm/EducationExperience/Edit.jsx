@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
+import InterviewContainer from '../InterviewContainer';
 import FormItem from '../FormItem';
 import mockAxios from 'mocks';
 
@@ -40,7 +41,8 @@ class Edit extends React.Component {
             ]
           }
         />
-      	<List style={{marginTop:45}}>
+        <InterviewContainer>
+      	<List>
           <FormItem form={this.props.form} fieldData={fieldDatas}/>
       	</List>
         <WhiteSpace />
@@ -50,7 +52,7 @@ class Edit extends React.Component {
         </WingBlank>
         <WhiteSpace />
         <WhiteSpace />
-
+        </InterviewContainer>
       </div>
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import { List, WhiteSpace, NavBar, Icon, Button, WingBlank } from 'antd-mobile';
 import { browserHistory } from 'react-router';
 import HNavBar from 'components/HNavBar';
+import InterviewContainer from './InterviewContainer';
 import mockAxios from 'mocks';
 import fetch from 'utils/fetch';
 import { isEmpty } from 'lodash';
@@ -39,6 +40,7 @@ const TemplateInfoTpl = (props) => {
   		(item, i) =>
 		    	
 		        <Item
+		          key={item.id}
 		          arrow="horizontal"
 		          multipleLine
 		          onClick={() => {browserHistory.push(routerFormat(item, routeFormatParams))}}
@@ -72,14 +74,15 @@ export default class Interview extends React.Component {
       	<HNavBar 
           title="面试登记表"
         />
-        <WhiteSpace />
-      	<List style={{marginTop:45}}>
-	    	<TemplateInfoTpl templateInfo={templateInfo.modules}/>
-	      	<WhiteSpace size="lg" />
-	    	<WingBlank><Button type="primary">保存</Button></WingBlank>
-	    	<WhiteSpace size="lg" />
-	      	<WhiteSpace size="lg" />
-	    </List>
+        <InterviewContainer>
+	      	<List>
+		    	<TemplateInfoTpl templateInfo={templateInfo.modules}/>
+		      	<WhiteSpace size="lg" />
+		    	<WingBlank><Button type="primary">保存</Button></WingBlank>
+		    	<WhiteSpace size="lg" />
+		      	<WhiteSpace size="lg" />
+		    </List>
+	    </InterviewContainer>
       </div>
     );
   }

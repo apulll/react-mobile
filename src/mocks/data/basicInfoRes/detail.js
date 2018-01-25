@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-24 18:00:59
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-24 18:01:42
+* @Last Modified time: 2018-01-25 15:32:36
 */
 export default {
     "code": 0,
@@ -15,6 +15,7 @@ export default {
                 "template_module_id": 1,
                 "template_id": 5,
                 "column_name": "波风水门",
+                "column_alias": "basic_1_4_1_text",
                 "column_type": "text",
                 "column_length": 10,
                 "column_values": "",

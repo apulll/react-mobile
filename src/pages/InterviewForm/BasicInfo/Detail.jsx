@@ -1,47 +1,84 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { List, NavBar, Icon } from 'antd-mobile';
+import { List, NavBar, Button, Icon, WingBlank, WhiteSpace } from 'antd-mobile';
+import { browserHistory } from 'react-router';
+import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
-import { isEmpty } from 'lodash';
+import InterviewContainer from '../InterviewContainer';
+import FormItem from '../FormItem';
 import mockAxios from 'mocks';
+import fetch from 'utils/fetch';
+import { formatFormData } from 'utils';
 import basicDetailData from 'mocks/data/basicInfoRes/detail'
 import basicOriginData from 'mocks/data/basicInfo'
-import { resDataFormat } from 'pages/InterviewForm/util'
+import { resDataFormat, formErrorsMsg, defaultParams } from 'pages/InterviewForm/util'
+import { assign } from 'lodash';
 
-const Item = List.Item;
-
-export default class Detail extends React.Component {
+class Detail extends React.Component {
   constructor(props) {
     super(props);
     this.state={
         fieldDatas: null,
+        errorMsg:null,
+        detail: {},
     }
   }
   componentDidMount() {
-    // mockAxios.get('/api/basicInfo').then((res)=>{
-    //   this.setState({fieldDatas:res.data})
-    // })
-    const newData = resDataFormat(basicOriginData, basicDetailData.res.basic, basicDetailData.res.extends)
-    this.setState({fieldDatas:newData})
+    mockAxios.get('/api/basicInfo/detail').then((res)=>{
+      const basicDetailData = res.data.res
+      const newData = resDataFormat(basicOriginData, basicDetailData.basic, basicDetailData.extends)
+      this.setState({fieldDatas:newData,detail:basicDetailData.basic})
+    })
+    
+  }
 
+  onSubmit = ()=>{
+    const { detail } = this.state
+    const { params } = this.props
+    this.props.form.validateFields({ force: true }, (error, value) => {
+      if(error){
+        const errorMsg = formErrorsMsg(error)
+        this.setState({errorMsg})
+      }else {
+        this.setState({errorMsg:''})
+        const fixParams = defaultParams(detail, params)
+        value = assign({}, formatFormData(value), fixParams)
+        fetch({
+          url:`http://hrmapi.local.com//Api/interview/fill/basic/${detail.id}`,
+          method:"put",
+          data:value,
+        })
+      }  
+    });
   }
   render() {
-    const {fieldDatas} = this.state;
+    const { fieldDatas, errorMsg } = this.state
     return (
       <div>
-      	<HNavBar 
-          title="基本信息"
+        <HNavBar 
+          title="基本信息编辑" 
           rightContent={
             [
-              <Link to="/basic/edit"><HIcon type="edit" /></Link>
+              <span><HIcon type="save" /></span>
             ]
           }
         />
-      	<List style={{marginTop:45}}>
-        	{!isEmpty(fieldDatas) ? fieldDatas.map((item, i) =><Item key={i} extra={item.column_values} >{item.column_name}</Item>) : null}
-      	</List>
+        <InterviewContainer>
+          <List>
+            <FormItem form={this.props.form} fieldData={fieldDatas}/>
+          </List>
+          <WingBlank><div style={{color:'#f76a24'}}>{errorMsg}</div></WingBlank>
+          <WhiteSpace />
+          <WhiteSpace />
+          <WingBlank>
+            <Button type="primary" onClick={this.onSubmit}>保存</Button>
+          </WingBlank>
+        </InterviewContainer>
+        <WhiteSpace />
+        <WhiteSpace />
       </div>
     );
   }
 }
+
+export default createForm()(Detail)

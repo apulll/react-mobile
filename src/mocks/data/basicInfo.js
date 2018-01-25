@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-22 13:35:34
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-24 16:22:18
+* @Last Modified time: 2018-01-25 09:31:35
 */
 export default [
     {
@@ -69,11 +69,21 @@ export default [
         "id":11,
         "column_name": "婚姻状况",
         "column_alias": "marital_status",
-        "column_type": "text",
+        "column_type": "select",
         "column_length": 10,
         "column_values": "",
         "column_tips": "",
         "is_required": 1,
+        "options":[
+            {
+                field_value:'1',
+                field_label:"已婚"
+            },
+            {
+                field_value:'2',
+                field_label:"未婚"
+            }
+        ]
     },
     {
         "id":12,
@@ -159,11 +169,41 @@ export default [
         "id":18,
         "column_name": "学历",
         "column_alias": "culture_type",
-        "column_type": "textarea",
+        "column_type": "select",
         "column_length": 10,
-        "column_values": "",
+        "column_values": '',
         "column_tips": "",
         "is_required": 1,
+        "options":[
+            {
+                field_value:'1',
+                field_label:"博士"
+            },
+            {
+                field_value:'2',
+                field_label:"硕士"
+            },
+            {
+                field_value:'3',
+                field_label:"本科"
+            },
+            {
+                field_value:'4',
+                field_label:"专科"
+            },
+            {
+                field_value:'5',
+                field_label:"高中"
+            },
+            {
+                field_value:'6',
+                field_label:"初中"
+            },
+            {
+                field_value:'7',
+                field_label:"小学"
+            }
+        ]
     },
     {
         "id":19,
