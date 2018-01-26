@@ -7,6 +7,7 @@ import HNavBar from 'components/HNavBar';
 import InterviewContainer from '../InterviewContainer';
 import FormItem from '../FormItem';
 import mockAxios from 'mocks';
+import { resDataFormat, formErrorsMsg, defaultParams } from 'pages/InterviewForm/util'
 
 class Edit extends React.Component {
   constructor(props) {
@@ -17,6 +18,10 @@ class Edit extends React.Component {
   }
   componentDidMount() {
     mockAxios.get('/api/education').then((res)=>{
+      // const basicDetailData = res.data.res
+      // const newData = resDataFormat(basicOriginData, basicDetailData.education, basicDetailData.extends)
+      // this.setState({fieldDatas:res})
+
       this.setState({fieldDatas:res.data})
     })
   }
