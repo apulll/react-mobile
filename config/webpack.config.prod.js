@@ -294,6 +294,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      config: JSON.stringify(env),
       minify: {
         removeComments: true,
         collapseWhitespace: true,

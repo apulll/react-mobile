@@ -1,6 +1,5 @@
 import React from 'react';
-import { List, NavBar, Button, Icon, WingBlank, WhiteSpace } from 'antd-mobile';
-import { browserHistory } from 'react-router';
+import { List, Button, WingBlank, WhiteSpace } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
