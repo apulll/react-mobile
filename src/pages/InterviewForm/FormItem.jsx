@@ -15,7 +15,7 @@ const Field = (props) => {
 			return (<InputItem
 						style={{textAlign:'right'}}
 			            {...getFieldProps(item.column_alias, {
-			              initialValue: item.column_values,
+			              initialValue: item.column_value,
 			              rules: [{required: item.is_required, message: `${item.column_name}不可为空`}],
 			            })}
 			          >
@@ -29,7 +29,7 @@ const Field = (props) => {
 						className="hq-form-diy-select"
 			            extra={
 			            <select {...getFieldProps(item.column_alias, {
-				          initialValue: item.column_values,
+				          initialValue: item.column_value,
 				          rules: [{required: item.is_required, message: `${item.column_name}不可为空`}],
 				        })}>{item.options.map((item, i) =><option key={i} value={item.field_value}>{item.field_label}</option>)}</select>}
 			            arrow="horizontal"
@@ -38,7 +38,7 @@ const Field = (props) => {
 			        </Item>
 			        );
 		case 'date':
-			const dateParam = item.column_values ? new Date(item.column_values) : new Date();
+			const dateParam = item.column_value ? new Date(item.column_value) : new Date();
 			return (
 					<DatePicker
 				        {...getFieldProps(item.column_alias, {
@@ -57,7 +57,7 @@ const Field = (props) => {
 					<TextareaItem
 						style={{textAlign:'right'}}
 						{...getFieldProps(item.column_alias, {
-							initialValue:item.column_values && item.column_values.toString(),
+							initialValue:item.column_value && item.column_value.toString(),
 							rules: [{required: item.is_required}]
 						})}
 						title={item.column_name}

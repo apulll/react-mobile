@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-24 18:03:04
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-26 17:02:04
+* @Last Modified time: 2018-01-26 18:19:56
 */
 import cookie from 'js-cookie';
 import { map, cloneDeep, concat, forIn } from 'lodash';
@@ -17,7 +17,7 @@ import { map, cloneDeep, concat, forIn } from 'lodash';
 export function resDataFormat(origin, detail, extendsData=[], isAdd = false) {
 	let originCopy = cloneDeep(origin)
 	map(originCopy,(value, key) => {
-		 value['column_values'] = !isAdd ? detail[value['column_alias']] : null
+		 value['column_value'] = !isAdd ? detail[value['column_alias']] : null
 
 	})
 	console.log(concat(originCopy, extendsData, detail.extends),'originCopy')

@@ -59,10 +59,11 @@ const TemplateInfoTpl = (props) => {
 export default class Interview extends React.Component {
   
   constructor(props) {
-	super(props)
-	this.state = {	
-		templateInfo:{}
-	}
+  	super(props)
+  	this.state = {
+      loading : false,
+  		templateInfo:{}
+  	}
   }
   componentDidMount(){
   	mockAxios.get('/api/template/info').then((res)=>{
@@ -87,17 +88,23 @@ export default class Interview extends React.Component {
   	const params = {template_id:getDomainCookie('template_id')}
   	const requestParams = assign({}, defaultParams(), params)
   	try {
+      this.setState({loading:true,disabled:true})
   		const newData = await fetch({url:url,data:requestParams})
+
+      this.setState({loading:false,disabled:false})
 	  	if(newData){
 	  		//正式保存成功之后，后面表单的所有编辑按钮全部需要置灰或者路由跳转控制不能通过
-	  	}
+        
+	  	}else{
+        // this.setState({loading:false,disabled:false})
+      }
   	}catch(error){
-
+      this.setState({loading:false,disabled:false})
   	}
   	
   }
   render() {
-  	const { templateInfo } = this.state;
+  	const { templateInfo, loading } = this.state;
     return (
       <div>
       	<HNavBar 
@@ -107,7 +114,7 @@ export default class Interview extends React.Component {
 	      	<List>
 		    	<TemplateInfoTpl templateInfo={templateInfo.modules}/>
 		      	<WhiteSpace size="lg" />
-		    	<WingBlank><Button type="primary" onClick={this.submitHandle}>保存</Button></WingBlank>
+		    	<WingBlank><Button type="primary" onClick={this.submitHandle} loading={loading} disabled={loading}>保存</Button></WingBlank>
 		    	<WhiteSpace size="lg" />
 		      	<WhiteSpace size="lg" />
 		    </List>

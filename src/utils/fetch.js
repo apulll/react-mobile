@@ -60,6 +60,7 @@ const localFetch = (options) => {
       msg = error.message || '网络错误'
     }
     // message.error(_locale.network_error)
+    Toast.offline(msg, 1);
     new Error(msg)
     return null
     // return response

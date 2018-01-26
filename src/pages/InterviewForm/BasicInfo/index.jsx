@@ -20,6 +20,7 @@ class BasicInfo extends React.Component {
         fieldDatas: null,
         errorMsg:null,
         detail: {},
+        loading: false,
     }
   }
   componentWillMount() {
@@ -40,7 +41,7 @@ class BasicInfo extends React.Component {
   getBasicInfo = async () => {
     
     const { params } = this.props
-    const url = `http://hrmapi.dev.mila66.com/Api/interview/fill/basic`
+    const url = `http://hrmapi.local.com/Api/interview/fill/basic`
     const requestParams = defaultParams(params)
     try {
       const newData = await fetch({url:url,data:requestParams})
@@ -58,26 +59,34 @@ class BasicInfo extends React.Component {
   onSubmit = ()=>{
     const { detail } = this.state
     const { params } = this.props
-    this.props.form.validateFields({ force: true }, (error, value) => {
+    this.props.form.validateFields({ force: true }, async (error, value) => {
+      this.setState({loading:true,disabled:true})
       if(error){
         const errorMsg = formErrorsMsg(error)
         this.setState({errorMsg})
+        this.setState({loading:false,disabled:false})
       }else {
         this.setState({errorMsg:''})
-        console.log(value,'value submit')
+        
         const fixParams = defaultParams(params, detail)
         value = assign({}, formatFormData(value), fixParams)
 
-        fetch({
-          url:`http://hrmapi.local.com/Api/interview/fill/basic/${detail.id}`,
-          method:"put",
-          data:value,
-        })
+        try {
+          const newData = await fetch({
+                          url:`http://hrmapi.local.com/Api/interview/fill/basic/${detail.id}`,
+                          method:"put",
+                          data:value,
+                        })
+          this.setState({loading:false,disabled:false})
+        }catch(error){
+          this.setState({loading:false,disabled:false})
+        }
+        
       }  
     });
   }
   render() {
-    const { fieldDatas, errorMsg } = this.state
+    const { fieldDatas, errorMsg, loading } = this.state
     return (
       <div>
         <HNavBar 
@@ -96,7 +105,7 @@ class BasicInfo extends React.Component {
           <WhiteSpace />
           <WhiteSpace />
           <WingBlank>
-            <HocButton type="primary" onClick={this.onSubmit}>保存</HocButton>
+            <HocButton type="primary" onClick={this.onSubmit} loading={loading} disabled={loading}>保存</HocButton>
           </WingBlank>
         </InterviewContainer>
         <WhiteSpace />
