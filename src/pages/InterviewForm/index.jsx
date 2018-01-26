@@ -1,10 +1,13 @@
 import React from 'react';
-import { List, WhiteSpace, Button, WingBlank } from 'antd-mobile';
+import { List, WhiteSpace, Button, WingBlank, Toast } from 'antd-mobile';
 import { browserHistory } from 'react-router';
 import HNavBar from 'components/HNavBar';
 import InterviewContainer from './InterviewContainer';
 import mockAxios from 'mocks';
-import { isEmpty } from 'lodash';
+import { isEmpty, assign } from 'lodash';
+import fetch from 'utils/fetch';
+import { getDomainCookie } from 'utils'
+import { resDataFormat, formErrorsMsg, defaultParams } from 'pages/InterviewForm/util'
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -66,6 +69,33 @@ export default class Interview extends React.Component {
       this.setState({templateInfo:res.data.res.template})
     })
   }
+  getTemplateInfo = async ()=> {
+  	const url = `http://hrmapi.local.com/Api/interview/fill/determine`
+  	const params = {template_id:getDomainCookie('template_id')}
+  	const requestParams = assign({}, defaultParams(), params)
+  	try {
+  		const newData = await fetch({url:url,data:requestParams})
+	  	if(newData){
+	  		//正式保存成功之后，后面表单的所有编辑按钮全部需要置灰或者路由跳转控制不能通过
+	  	}
+  	}catch(error){
+
+  	}
+  }
+  submitHandle = async ()=> {
+  	const url = `http://hrmapi.local.com/Api/interview/fill/determine`
+  	const params = {template_id:getDomainCookie('template_id')}
+  	const requestParams = assign({}, defaultParams(), params)
+  	try {
+  		const newData = await fetch({url:url,data:requestParams})
+	  	if(newData){
+	  		//正式保存成功之后，后面表单的所有编辑按钮全部需要置灰或者路由跳转控制不能通过
+	  	}
+  	}catch(error){
+
+  	}
+  	
+  }
   render() {
   	const { templateInfo } = this.state;
     return (
@@ -77,7 +107,7 @@ export default class Interview extends React.Component {
 	      	<List>
 		    	<TemplateInfoTpl templateInfo={templateInfo.modules}/>
 		      	<WhiteSpace size="lg" />
-		    	<WingBlank><Button type="primary">保存</Button></WingBlank>
+		    	<WingBlank><Button type="primary" onClick={this.submitHandle}>保存</Button></WingBlank>
 		    	<WhiteSpace size="lg" />
 		      	<WhiteSpace size="lg" />
 		    </List>

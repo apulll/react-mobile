@@ -38,7 +38,7 @@ export default class App extends React.Component {
   		    >NavBar
   		    </NavBar>
 	    </div>*/}
-	   	<div className="mq-container">
+	   	<div>
 	   		{this.props.children}
 	    </div>
       </div>

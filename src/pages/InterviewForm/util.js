@@ -2,8 +2,9 @@
 * @Author: perry
 * @Date:   2018-01-24 18:03:04
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-25 21:31:22
+* @Last Modified time: 2018-01-26 17:02:04
 */
+import cookie from 'js-cookie';
 import { map, cloneDeep, concat, forIn } from 'lodash';
 /**
  * 合并表单基本信息 和 表单扩展信息 和 用户填写表单信息
@@ -43,14 +44,25 @@ export function formErrorsMsg(error) {
  * @param  {[type]} params 当前路由相关参数
  * @return {[type]}        [description]
  */
-export function defaultParams(detail, params) {
+export function defaultParams(params, detail ={}) {
+	
 	let newParams = {}
 	newParams.access_token = 'teNIPEZu7yPkyShnwoP9OpXwqw8HUF90jLVcDO5A'
-    newParams.company_id = detail.company_id
-    newParams.batch_id = detail.batch_id
-    newParams.invitation_id = detail.invitation_id
-    newParams.template_id = params.template_id
-    newParams.template_module_id = params.template_module_id
+    newParams.company_id = cookie.get('company_id') || ''
+    newParams.batch_id = cookie.get('batch_id') || ''
+    newParams.invitation_id = cookie.get('invitation_id') || ''
+    newParams.template_id = params && (params.template_id || '')
+    newParams.template_module_id = params && (params.template_module_id || '')
 
     return newParams
 }
+
+export function setDomainCookie(info){
+	cookie.set('company_id',info.company_id, { expires: 1/24 })
+	cookie.set('invitation_id',info.invitation_id, { expires: 1/24 })
+	cookie.set('batch_id',info.batch_id, { expires: 1/24 })
+	cookie.set('template_id',info.template_id, { expires: 1/24 })
+}
+
+
+

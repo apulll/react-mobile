@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, InputItem, DatePicker, TextareaItem } from 'antd-mobile';
-import { isEmpty } from 'lodash';
+import { isEmpty, has } from 'lodash';
 import './index.less';
 
 const Item = List.Item;
@@ -9,7 +9,7 @@ const Field = (props) => {
 	const { item, form } = props;
   	const { getFieldProps } = form;
 	const type = props.item.column_type
-
+	if(!has(item, 'column_alias')) return ''; //
 	switch(type){
 		case 'text':
 			return (<InputItem

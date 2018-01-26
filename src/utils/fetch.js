@@ -1,3 +1,6 @@
+
+import React from 'react';
+import { Toast } from 'antd-mobile';
 import axiosInstance from 'utils/axiosInstance';
 import { assign, cloneDeep } from 'lodash';
 
@@ -39,7 +42,7 @@ const localFetch = (options) => {
       if (response.data.status) {
           return response.data
       } else {
-          
+          Toast.fail(response.data.msg, 1);
           return null;
       }
     } 	 

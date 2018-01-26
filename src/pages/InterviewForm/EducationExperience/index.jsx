@@ -50,7 +50,7 @@ const ListTpl = (props) => {
   )
 }
 
-export default class Detail extends React.Component {
+export default class Education extends React.Component {
   constructor(props) {
     super(props);
     this.state={
