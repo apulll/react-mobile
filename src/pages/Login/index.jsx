@@ -25,7 +25,11 @@ class Home extends React.Component {
       captcha:null,
       captchaCode:null,
       snsDisabled:true,
+
+      count: 120,//倒计时120s
       endOfTimer: false,//倒计时判断
+      timer:null,//倒计时参数
+
       // submit params
       loading:false,
       disabled:false,
@@ -42,7 +46,9 @@ class Home extends React.Component {
     // !isEmpty(query) && this.setState({query})
     // getAccessToken()
   }
-
+  // componentWillMount() {
+  //   clearInterval(this.timer);
+  // }
   getInviteInfo = async () =>{
     const query = this.props.location.query
     const url = `http://hrmapi.dev.mila66.com/Api/recruitment/interview/inviteInfoh5`
@@ -69,6 +75,7 @@ class Home extends React.Component {
       }
     }
   }
+  //获取图片验证码
   getCaptcha = async () =>  {
     const url = `/localapi/getCaptcha`;
     // const {mobile} = this.state;
@@ -85,6 +92,7 @@ class Home extends React.Component {
 
     }
   }
+  //图片验证文本输入
   changeCaptcha = (value)=> {
 
     // this.state.captcha && 
@@ -95,9 +103,11 @@ class Home extends React.Component {
       this.setState({captchaCode:null,snsDisabled:true})
     }
   }
+  //获取验证码弹框
   getCode = async (e)=> {
     this.setState({visible:true, captchaCode:null, snsDisabled:true,})
   }
+  //获取短信验证码
   getSnsCode = async ()=> {
     const url = `http://hrmapi.local.com/Api/interview/fill/sms`;
     const {mobile} = this.state.info;
@@ -113,16 +123,41 @@ class Home extends React.Component {
       if(!newData){
           // const info = newData.res
           //获取短信验证码成功后，自动关闭弹框
-          this.setState({visible:false, captchaCode:null, snsDisabled:true,endOfTimer:true})
+          this.setState({visible:false, captchaCode:null, snsDisabled:true})
+          this.countDown()
           // this.setState({code})
         }
     }catch(error){
 
     }
   }
+  //获取短信验证码成功，倒计时120 s
+  countDown = ()=>{
+    // endOfTimer:true
+    this.setState({endOfTimer:true})
+    this.timer = setInterval( ()=> {
+            var count = this.state.count;
+            this.state.liked = false;
+            count -= 1;
+            if (count < 1) {
+              this.setState({
+                endOfTimer: false
+              });
+              count = 120;
+　　　　　　　clearInterval(this.timer);
+            }
+            this.setState({
+              count: count
+            });
+          }, 1000);
+
+
+  }
+  //关闭弹框
   onClose = () => {
     this.setState({visible:false})
   }
+  //用户最终信息验证
   submitHandle = ()=> {
     // const { detail } = this.state
     // const { params } = this.props
@@ -154,10 +189,10 @@ class Home extends React.Component {
     });
   }
   render() {
-    const { info, visible, captcha, snsDisabled, loading, disabled, endOfTimer } = this.state;
+    const { info, visible, captcha, snsDisabled, loading, disabled, endOfTimer, count } = this.state;
     const { getFieldProps } = this.props.form;
-    
-    const endOfTimerTxt = endOfTimer ? "120s" : '获取验证码'
+    console.log('1112222')
+    const endOfTimerTxt = endOfTimer ? count : '获取验证码'
     return (
       <div>
       <HNavBar 
