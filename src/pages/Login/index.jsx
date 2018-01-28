@@ -95,7 +95,7 @@ class Home extends React.Component {
     }
   }
   getCode = async (e)=> {
-    this.setState({visible:true})
+    this.setState({visible:true, captchaCode:null, snsDisabled:true,})
   }
   getSnsCode = async ()=> {
     const url = `http://hrmapi.local.com/Api/interview/fill/sms`;
@@ -141,7 +141,7 @@ class Home extends React.Component {
                           url:`http://hrmapi.local.com/Api/interview/fill/login`,
                           method:"post",
                           data:value,
-                        })
+                        }) 
           this.setState({loading:false,disabled:false})
         }catch(error){
           this.setState({loading:false,disabled:false})
