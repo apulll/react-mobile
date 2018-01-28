@@ -25,6 +25,7 @@ class Home extends React.Component {
       captcha:null,
       captchaCode:null,
       snsDisabled:true,
+      endOfTimer: false,//倒计时判断
       // submit params
       loading:false,
       disabled:false,
@@ -101,16 +102,18 @@ class Home extends React.Component {
     const url = `http://hrmapi.local.com/Api/interview/fill/sms`;
     const {mobile} = this.state.info;
     try{
-      const newData = await fetch({
-                              url:url,
-                              data:{
-                                access_token:'P8h8wNgVA2BgnZ90vmuYArEITpZH4HRTr1VPOx2D',
-                                mobile:mobile,
-                              }
-                            })
-      if(newData){
-          const info = newData.res
-          
+      const newData = null 
+      // await fetch({
+      //                         url:url,
+      //                         data:{
+      //                           access_token:'P8h8wNgVA2BgnZ90vmuYArEITpZH4HRTr1VPOx2D',
+      //                           mobile:mobile,
+      //                         }
+      //                       })
+      if(!newData){
+          // const info = newData.res
+          //获取短信验证码成功后，自动关闭弹框
+          this.setState({visible:false, captchaCode:null, snsDisabled:true,endOfTimer:true})
           // this.setState({code})
         }
     }catch(error){
@@ -151,9 +154,10 @@ class Home extends React.Component {
     });
   }
   render() {
-    const { info, visible, captcha, snsDisabled, loading, disabled } = this.state;
+    const { info, visible, captcha, snsDisabled, loading, disabled, endOfTimer } = this.state;
     const { getFieldProps } = this.props.form;
-    console.log(this.state)
+    
+    const endOfTimerTxt = endOfTimer ? "120s" : '获取验证码'
     return (
       <div>
       <HNavBar 
@@ -195,7 +199,7 @@ class Home extends React.Component {
               initialValue: '',
               rules: [{required: true, message: `不可为空`}],
             })}
-            extra={<Button type="primary" size="small" inline="true" onClick={this.getCode}>获取验证码</Button>}
+            extra={<Button type="primary" size="small" inline="true" onClick={this.getCode} disabled={endOfTimer}>{endOfTimerTxt}</Button>}
           >验证码</InputItem>
 
         </List>
