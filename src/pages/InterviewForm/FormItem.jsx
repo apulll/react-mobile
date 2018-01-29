@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, InputItem, DatePicker, TextareaItem } from 'antd-mobile';
+import { List, InputItem, DatePicker, TextareaItem, WingBlank, WhiteSpace } from 'antd-mobile';
 import { isEmpty, has } from 'lodash';
 import './index.less';
 
@@ -75,21 +75,21 @@ const Field = (props) => {
 
 
 const FormItem = (props) => {
-  // let errors;
+  let errors;
   const { form, fieldData } = props;
   // const { getField
-  // const { getFieldError } = form;
-  // const errorCollect = function() {
-  // 	if(!isEmpty(fieldData)) {
-  // 		const aaa = fieldData.map((item, i) =>{return (errors = getFieldError(item.column_alias)) ? errors.join(',') : null})
-  // 		return <span>{aaa[0]}</span>
-  // 	}
+  const { getFieldError } = form;
+  const errorCollect = function() {
+  	if(!isEmpty(fieldData)) {
+  		const aaa = fieldData.map((item, i) =>{return (errors = getFieldError(item.column_alias)) ? <span>{errors.join(',')},</span> : null})
+  		return <WingBlank><WhiteSpace /><span>{aaa}</span></WingBlank>
+  	}
 
-  // }
+  }
   return (
     <div className="hq-form-item-field">
-    	{!isEmpty(fieldData) ? fieldData.map((item, i) =><Field key={i} item={item} form={form}/>) : null}
-    	{/*{errorCollect()}*/}
+    	<List>{!isEmpty(fieldData) ? fieldData.map((item, i) =><Field key={i} item={item} form={form}/>) : null}</List>
+    	{errorCollect()}
     </div>
   )
 }

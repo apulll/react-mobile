@@ -53,7 +53,7 @@ class Add extends React.Component {
     }
   }
   onSubmit = ()=>{
-    
+
     const { params } = this.props
     this.props.form.validateFields({ force: true }, async (error, value) => {
       this.setState({loading:true,disabled:true})
@@ -95,9 +95,9 @@ class Add extends React.Component {
           }
         />
         <InterviewContainer>
-      	<List>
+      	
           <FormItem form={this.props.form} fieldData={fieldDatas} isAdd />
-      	</List>
+      	
         <WhiteSpace />
         <WhiteSpace />
         <WingBlank>

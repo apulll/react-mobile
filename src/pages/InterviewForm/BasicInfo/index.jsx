@@ -62,12 +62,10 @@ class BasicInfo extends React.Component {
     this.props.form.validateFields({ force: true }, async (error, value) => {
       this.setState({loading:true,disabled:true})
       if(error){
-        const errorMsg = formErrorsMsg(error)
-        this.setState({errorMsg})
+
         this.setState({loading:false,disabled:false})
       }else {
-        this.setState({errorMsg:''})
-        
+
         const fixParams = defaultParams(params, detail)
         value = assign({}, formatFormData(value), fixParams)
 
@@ -99,9 +97,7 @@ class BasicInfo extends React.Component {
           }
         />
         <InterviewContainer>
-          <List>
-            <FormItem form={this.props.form} fieldData={fieldDatas}/>
-          </List>
+          <FormItem form={this.props.form} fieldData={fieldDatas}/>
           <WingBlank><div style={{color:'#f76a24'}}>{errorMsg}</div></WingBlank>
           <WhiteSpace />
           <WhiteSpace />

@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-23 11:47:25
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-29 15:18:19
+* @Last Modified time: 2018-01-29 18:35:18
 */
 export default [
 	{
@@ -36,6 +36,10 @@ export default [
         "is_required": 1,
         "options":[
             {
+                field_value:'0',
+                field_label:"请选择"
+            },
+            {
                 field_value:'1',
                 field_label:"全日制"
             },
@@ -55,6 +59,10 @@ export default [
         "column_tips": "",
         "is_required": 1,
         "options":[
+            {
+                field_value:'0',
+                field_label:"请选择"
+            },
             {
                 field_value:'1',
                 field_label:"博士"
@@ -95,6 +103,10 @@ export default [
         "column_tips": "",
         "is_required": 1,
         "options":[
+            {
+                field_value:'0',
+                field_label:"请选择"
+            },
             {
                 field_value:'1',
                 field_label:"学士"
