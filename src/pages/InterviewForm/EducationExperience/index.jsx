@@ -11,7 +11,8 @@ import fetch from 'utils/fetch';
 const Item = List.Item;
 
 const ListTpl = (props) => {
-  const { item } = props;
+  const { item, params } = props;
+  const editUrl = `/educationexperience/edit/${params.template_id}/${params.template_module_id}/${item.id}`
 
   return (
   	<div>
@@ -39,7 +40,7 @@ const ListTpl = (props) => {
 	        align="middle" 
 	        arrow="horizontal" 
 	        multipleLine 
-	        onClick={() => {browserHistory.push('/educationexperience/edit')}}
+	        onClick={() => {browserHistory.push(editUrl)}}
         >
           <p>{item.school}</p> 
           <p><span>{item.major}</span>-<span>{item.culture_type_text}</span></p>
@@ -92,7 +93,7 @@ export default class Education extends React.Component {
           title="教育经历"
         />
         <InterviewContainer>
-        	{!isEmpty(list) ? list.map((item, i) =><ListTpl key={i} item={item} />) : null}
+        	{!isEmpty(list) ? list.map((item, i) =><ListTpl key={i} item={item} params={params}/>) : null}
         </InterviewContainer>
 
       	<WhiteSpace />
