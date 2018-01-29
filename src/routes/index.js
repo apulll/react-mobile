@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-19 15:30:54
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-29 19:39:46
+* @Last Modified time: 2018-01-29 20:45:17
 */
 import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
@@ -14,6 +14,11 @@ import BasicInfo from 'pages/InterviewForm/BasicInfo';
 import EducationExperience from 'pages/InterviewForm/EducationExperience';
 import EducationExperienceEdit from 'pages/InterviewForm/EducationExperience/Edit';
 import EducationExperienceAdd from 'pages/InterviewForm/EducationExperience/Add';
+//紧急联系人
+import Emergency from 'pages/InterviewForm/EmergencyContact';
+// import EducationExperienceEdit from 'pages/InterviewForm/EducationExperience/Edit';
+// import EducationExperienceAdd from 'pages/InterviewForm/EducationExperience/Add';
+
 import { loginBeforeAction } from 'middleware/auth';
 
 export default ()=> (
@@ -32,7 +37,8 @@ export default ()=> (
 
             <Route path="/work/:template_id/:template_module_id" component={BasicInfo} />
             <Route path="/family/:template_id/:template_module_id" component={BasicInfo} />
-            <Route path="/emergency/:template_id/:template_module_id" component={BasicInfo} />
+
+            <Route path="/emergency/:template_id/:template_module_id" component={Emergency} />
                 
 
             
