@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-23 11:47:25
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-24 16:52:39
+* @Last Modified time: 2018-01-29 15:18:19
 */
 export default [
 	{
@@ -97,7 +97,7 @@ export default [
         "options":[
             {
                 field_value:'1',
-                field_label:"博士"
+                field_label:"学士"
             },
             {
                 field_value:'2',
@@ -105,7 +105,7 @@ export default [
             },
             {
                 field_value:'3',
-                field_label:"学士"
+                field_label:"博士"
             },
             {
                 field_value:'4',

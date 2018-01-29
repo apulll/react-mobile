@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Button, WingBlank, WhiteSpace } from 'antd-mobile';
+import { List, Button, WingBlank, WhiteSpace, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
@@ -41,7 +41,7 @@ class BasicInfo extends React.Component {
   getBasicInfo = async () => {
     
     const { params } = this.props
-    const url = `http://hrmapi.local.com/Api/interview/fill/basic`
+    const url = API.INTERVIEW_BASIC
     const requestParams = defaultParams(params)
     try {
       const newData = await fetch({url:url,data:requestParams})
@@ -73,11 +73,12 @@ class BasicInfo extends React.Component {
 
         try {
           const newData = await fetch({
-                          url:`http://hrmapi.local.com/Api/interview/fill/basic/${detail.id}`,
+                          url:`${API.INTERVIEW_BASIC}/${detail.id}`,
                           method:"put",
                           data:value,
                         })
           this.setState({loading:false,disabled:false})
+          Toast.success('资料更新成功', 1);
         }catch(error){
           this.setState({loading:false,disabled:false})
         }

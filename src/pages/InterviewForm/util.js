@@ -2,10 +2,10 @@
 * @Author: perry
 * @Date:   2018-01-24 18:03:04
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-26 18:19:56
+* @Last Modified time: 2018-01-29 18:22:42
 */
 import cookie from 'js-cookie';
-import { map, cloneDeep, concat, forIn } from 'lodash';
+import { map, cloneDeep, concat, forIn, pick, isEmpty, difference, pullAt } from 'lodash';
 /**
  * 合并表单基本信息 和 表单扩展信息 和 用户填写表单信息
  * @param  {[type]}  origin      客户端固定的表单基本必填信息
@@ -14,15 +14,41 @@ import { map, cloneDeep, concat, forIn } from 'lodash';
  * @param  {Boolean} isAdd       是否是新增内容（）
  * @return {[type]}              [description]
  */
-export function resDataFormat(origin, detail, extendsData=[], isAdd = false) {
+export function resDataFormat(origin, detail={}, extendsData=[], isAdd = false) {
 	let originCopy = cloneDeep(origin)
-	map(originCopy,(value, key) => {
+	if(!isEmpty(detail)){
+		map(originCopy,(value, key) => {
 		 value['column_value'] = !isAdd ? detail[value['column_alias']] : null
 
-	})
-	console.log(concat(originCopy, extendsData, detail.extends),'originCopy')
+		})
+		//如果 detail 中的extends 有和extendsData重复，使用detail.extends中的值覆盖掉extendsData值
+		const extendFields = pickData(detail.extends, extendsData)
+		return concat(originCopy, extendFields)
+	}else {
+		return concat(originCopy, extendsData)
+	}
 	
-	return concat(originCopy, extendsData, detail.extends)
+}
+/**
+ * 合并模板扩展字段和用户自定义字段， 默认使用用户自定义字段当两个字段同名时
+ * @param  {[type]} origin 用户自定义字段集合
+ * @param  {[type]} target 模板扩展字段集合
+ * @return {[type]}        [description]
+ */
+function pickData(origin, target) {
+	const newArr = cloneDeep(origin);
+	let newTarget = cloneDeep(target);
+	map(origin,function(value, key){
+		if(!newTarget) return;
+		map(newTarget,function(value2, key2){
+			if(value.column_alias === value2.column_alias){
+				pullAt(newTarget,key2)
+			}
+		})
+	})
+	if(newTarget) return concat(newArr, newTarget);
+
+	return newArr;
 }
 /**
  * 表单填写错误信息展示
@@ -57,11 +83,12 @@ export function defaultParams(params, detail ={}) {
     return newParams
 }
 
-export function setDomainCookie(info){
-	cookie.set('company_id',info.company_id, { expires: 1/24 })
-	cookie.set('invitation_id',info.invitation_id, { expires: 1/24 })
-	cookie.set('batch_id',info.batch_id, { expires: 1/24 })
-	cookie.set('template_id',info.template_id, { expires: 1/24 })
+export function setDomainCookie(info={}, keys=[] ){
+	const newInfo = pick(info, keys)
+	forIn(newInfo, function(value, key) {
+		cookie.set(key,value)
+	})
+	//  
 }
 
 

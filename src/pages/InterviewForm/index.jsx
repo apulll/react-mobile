@@ -71,7 +71,7 @@ export default class Interview extends React.Component {
     })
   }
   getTemplateInfo = async ()=> {
-  	const url = `http://hrmapi.local.com/Api/interview/fill/determine`
+  	const url = API.INTERVIEW_DATERMINE
   	const params = {template_id:getDomainCookie('template_id')}
   	const requestParams = assign({}, defaultParams(), params)
   	try {
@@ -84,7 +84,7 @@ export default class Interview extends React.Component {
   	}
   }
   submitHandle = async ()=> {
-  	const url = `http://hrmapi.local.com/Api/interview/fill/determine`
+  	const url = API.INTERVIEW_DATERMINE
   	const params = {template_id:getDomainCookie('template_id')}
   	const requestParams = assign({}, defaultParams(), params)
   	try {

@@ -6,6 +6,7 @@ import { isEmpty, assign } from 'lodash';
 import HNavBar from 'components/HNavBar';
 import { setDomainCookie, defaultParams } from 'pages/InterviewForm/util';
 import fetch from 'utils/fetch';
+import { getDomainCookie } from 'utils';
 import './index.less';
 // import ENV from 'ENV';
 const FlexItem = Flex.Item
@@ -50,29 +51,27 @@ class Home extends React.Component {
   //   clearInterval(this.timer);
   // }
   getInviteInfo = async () =>{
-    const query = this.props.location.query
-    const url = `http://hrmapi.dev.mila66.com/Api/recruitment/interview/inviteInfoh5`
-    if(!isEmpty(query)) {
-     
-      try{
-         const newData = await fetch({
-                              url:url,
-                              data:{
-                                access_token:'P8h8wNgVA2BgnZ90vmuYArEITpZH4HRTr1VPOx2D',
-                                company_id:query.company_id,
-                                invitation_id:query.invitation_id
-                              }
-                            })
-        console.log(newData)
-        if(newData){
-          const info = newData.res
+    const company_id = getDomainCookie('company_id');
+    const invitation_id = getDomainCookie('invitation_id');
+    const url = API.INTERVIEW_INVITEINFO
+    try{
+       const newData = await fetch({
+                            url:url,
+                            data:{
+                              access_token:'P8h8wNgVA2BgnZ90vmuYArEITpZH4HRTr1VPOx2D',
+                              company_id:company_id,
+                              invitation_id:invitation_id
+                            }
+                          })
+      console.log(newData)
+      if(newData){
+        const info = newData.res
 
-          this.setState({info})
-          setDomainCookie(assign({}, info, {invitation_id:query.invitation_id}))
-        }
-      }catch(error){
-        console.log(error,'error ===')
+        this.setState({info})
+        setDomainCookie(assign({}, info),['template_id','batch_id'])
       }
+    }catch(error){
+      console.log(error,'error ===')
     }
   }
   //获取图片验证码
@@ -109,18 +108,18 @@ class Home extends React.Component {
   }
   //获取短信验证码
   getSnsCode = async ()=> {
-    const url = `http://hrmapi.local.com/Api/interview/fill/sms`;
+    const url = API.INTERVIEW_SENDSMS;
     const {mobile} = this.state.info;
     try{
-      const newData = null 
-      // await fetch({
-      //                         url:url,
-      //                         data:{
-      //                           access_token:'P8h8wNgVA2BgnZ90vmuYArEITpZH4HRTr1VPOx2D',
-      //                           mobile:mobile,
-      //                         }
-      //                       })
-      if(!newData){
+      const newData = await fetch({
+                              url:url,
+                              data:{
+                                access_token:'P8h8wNgVA2BgnZ90vmuYArEITpZH4HRTr1VPOx2D',
+                                mobile:mobile,
+                              }
+                            })
+      
+      if(newData){
           // const info = newData.res
           //获取短信验证码成功后，自动关闭弹框
           this.setState({visible:false, captchaCode:null, snsDisabled:true})
@@ -176,7 +175,7 @@ class Home extends React.Component {
 
         try {
           const newData = await fetch({
-                          url:`http://hrmapi.local.com/Api/interview/fill/login`,
+                          url:API.INTERVIEW_LOGIN,
                           method:"post",
                           data:value,
                         }) 
@@ -191,14 +190,9 @@ class Home extends React.Component {
   render() {
     const { info, visible, captcha, snsDisabled, loading, disabled, endOfTimer, count } = this.state;
     const { getFieldProps } = this.props.form;
-    console.log('1112222')
     const endOfTimerTxt = endOfTimer ? count : '获取验证码'
     return (
       <div>
-      <HNavBar 
-          title="面试登记表"
-          hasLeft={false}
-      />
       <div style={{marginTop:45}}>
         <WhiteSpace />
         <WhiteSpace />

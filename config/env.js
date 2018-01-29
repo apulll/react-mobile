@@ -40,6 +40,9 @@ dotenvFiles.forEach(dotenvFile => {
   }
 });
 
+const ENV = require('dotenv').config({path: `${paths.dotenv}`}).parsed
+
+
 // We support resolving modules according to `NODE_PATH`.
 // This lets you use absolute paths in imports inside large monorepos:
 // https://github.com/facebookincubator/create-react-app/issues/253.
@@ -77,6 +80,8 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+
+
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
@@ -87,7 +92,7 @@ function getClientEnvironment(publicUrl) {
     }, {}),
   };
 
-  return { raw, stringified };
+  return { raw, stringified, ENV };
 }
 
 module.exports = getClientEnvironment;

@@ -3,8 +3,10 @@ import { Link, browserHistory } from 'react-router';
 import { List, WhiteSpace, SwipeAction, WingBlank, Button } from 'antd-mobile';
 import HNavBar from 'components/HNavBar';
 import InterviewContainer from '../InterviewContainer';
+import { defaultParams } from 'pages/InterviewForm/util'
 import mockAxios from 'mocks';
 import { isEmpty } from 'lodash';
+import fetch from 'utils/fetch';
 
 const Item = List.Item;
 
@@ -58,13 +60,32 @@ export default class Education extends React.Component {
     }
   }
   componentDidMount() {
+    this.getEducationList()
+  }
+  mockGet = ()=> {
     mockAxios.get('/api/education/list').then((res)=>{
-    	console.log(res, 'list res')
+      console.log(res, 'list res')
       this.setState({list:res.data.res.education})
     })
   }
+  getEducationList = async ()=> {
+    
+    const { params } = this.props
+    const url = API.INTERVIEW_EDUCATION;
+    const requestParams = defaultParams(params)
+    try {
+      const newData = await fetch({url:url,data:requestParams})
+    
+        this.setState({list:newData.res.education})
+
+    }catch(error){
+      // this.setState({loading:false,disabled:false})
+    }
+  }
   render() {
     const {list} = this.state;
+    const { params } = this.props
+    const addUrl = `/educationexperience/add/${params.template_id}/${params.template_module_id}`
     return (
       <div>
       	<HNavBar 
@@ -76,9 +97,12 @@ export default class Education extends React.Component {
 
       	<WhiteSpace />
       	<WingBlank>
-      		<Link to="/educationexperience/add"><Button type="primary">新增教育经历</Button></Link>
+      		<Link to={addUrl}><Button type="primary">新增教育经历</Button></Link>
+          {/*<Link to="/educationexperience/add"><Button type="primary">新增教育经历</Button></Link>*/}
       	</WingBlank>
-
+        <WhiteSpace />
+        <WhiteSpace />
+        <WhiteSpace />
       </div>
     );
   }
