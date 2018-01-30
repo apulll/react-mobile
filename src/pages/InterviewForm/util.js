@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-24 18:03:04
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-29 18:22:42
+* @Last Modified time: 2018-01-30 14:28:45
 */
 import cookie from 'js-cookie';
 import { map, cloneDeep, concat, forIn, pick, isEmpty, difference, pullAt } from 'lodash';
@@ -73,7 +73,7 @@ export function formErrorsMsg(error) {
 export function defaultParams(params, detail ={}) {
 	
 	let newParams = {}
-	newParams.access_token = 'teNIPEZu7yPkyShnwoP9OpXwqw8HUF90jLVcDO5A'
+	newParams.access_token = cookie.get('access_token') || ''
     newParams.company_id = cookie.get('company_id') || ''
     newParams.batch_id = cookie.get('batch_id') || ''
     newParams.invitation_id = cookie.get('invitation_id') || ''
@@ -83,12 +83,15 @@ export function defaultParams(params, detail ={}) {
     return newParams
 }
 
-export function setDomainCookie(info={}, keys=[] ){
+export function setDomainCookie(info={}, keys=[], maxAge=''){
 	const newInfo = pick(info, keys)
 	forIn(newInfo, function(value, key) {
 		cookie.set(key,value)
 	})
 	//  
+}
+export function setCookie(name, value='', expires=1/24){
+	cookie.set(name,value, { expires: expires})
 }
 
 

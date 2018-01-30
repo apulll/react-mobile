@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Button, WingBlank, WhiteSpace, Toast } from 'antd-mobile';
+import { WingBlank, WhiteSpace, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
@@ -9,7 +9,7 @@ import mockAxios from 'mocks';
 import fetch from 'utils/fetch';
 import { formatFormData } from 'utils';
 import basicOriginData from 'mocks/data/basicInfo'
-import { resDataFormat, formErrorsMsg, defaultParams } from 'pages/InterviewForm/util'
+import { resDataFormat, defaultParams } from 'pages/InterviewForm/util'
 import { assign } from 'lodash';
 import { HocButton } from 'components/Hoc'
 
@@ -76,7 +76,7 @@ class BasicInfo extends React.Component {
                           data:value,
                         })
           this.setState({loading:false,disabled:false})
-          Toast.success('资料更新成功', 1);
+          newData && Toast.success('资料更新成功', 1);
         }catch(error){
           this.setState({loading:false,disabled:false})
         }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, WhiteSpace, Button, WingBlank, Toast } from 'antd-mobile';
+import { List, WhiteSpace, Button, WingBlank } from 'antd-mobile';
 import { browserHistory } from 'react-router';
 import HNavBar from 'components/HNavBar';
 import InterviewContainer from './InterviewContainer';
@@ -7,7 +7,7 @@ import mockAxios from 'mocks';
 import { isEmpty, assign } from 'lodash';
 import fetch from 'utils/fetch';
 import { getDomainCookie } from 'utils'
-import { resDataFormat, formErrorsMsg, defaultParams } from 'pages/InterviewForm/util'
+import { defaultParams } from 'pages/InterviewForm/util'
 
 const Item = List.Item;
 const Brief = Item.Brief;

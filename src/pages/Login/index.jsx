@@ -1,17 +1,16 @@
 import React from 'react';
 import { List, InputItem, Button, WingBlank, WhiteSpace, Modal, Flex } from 'antd-mobile';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { createForm } from 'rc-form';
-import { isEmpty, assign } from 'lodash';
-import HNavBar from 'components/HNavBar';
-import { setDomainCookie, defaultParams } from 'pages/InterviewForm/util';
+import { assign } from 'lodash';
+import { setDomainCookie, defaultParams, setCookie } from 'pages/InterviewForm/util';
 import fetch from 'utils/fetch';
 import { getDomainCookie } from 'utils';
 import './index.less';
 // import ENV from 'ENV';
 const FlexItem = Flex.Item
 
-class Home extends React.Component {
+class Login extends React.Component {
   
   constructor(props) {
     super(props)
@@ -53,12 +52,13 @@ class Home extends React.Component {
   getInviteInfo = async () =>{
     const company_id = getDomainCookie('company_id');
     const invitation_id = getDomainCookie('invitation_id');
+    const access_token = getDomainCookie('access_token');
     const url = API.INTERVIEW_INVITEINFO
     try{
        const newData = await fetch({
                             url:url,
                             data:{
-                              access_token:'P8h8wNgVA2BgnZ90vmuYArEITpZH4HRTr1VPOx2D',
+                              access_token:access_token,
                               company_id:company_id,
                               invitation_id:invitation_id
                             }
@@ -69,6 +69,8 @@ class Home extends React.Component {
 
         this.setState({info})
         setDomainCookie(assign({}, info),['template_id','batch_id'])
+        const obj = {company_id:company_id, invitation_id:invitation_id}
+        setCookie('mila_muser',obj,1/24)//一小时有效期
       }
     }catch(error){
       console.log(error,'error ===')
@@ -136,7 +138,6 @@ class Home extends React.Component {
     this.setState({endOfTimer:true})
     this.timer = setInterval( ()=> {
             var count = this.state.count;
-            this.state.liked = false;
             count -= 1;
             if (count < 1) {
               this.setState({
@@ -178,7 +179,11 @@ class Home extends React.Component {
                           url:API.INTERVIEW_LOGIN,
                           method:"post",
                           data:value,
-                        }) 
+                        })
+          if(newData){
+            //验证成功
+            browserHistory.push('/interview')
+          }
           this.setState({loading:false,disabled:false})
         }catch(error){
           this.setState({loading:false,disabled:false})
@@ -188,8 +193,9 @@ class Home extends React.Component {
     });
   }
   render() {
+    let errors ;
     const { info, visible, captcha, snsDisabled, loading, disabled, endOfTimer, count } = this.state;
-    const { getFieldProps } = this.props.form;
+    const { getFieldProps, getFieldError } = this.props.form;
     const endOfTimerTxt = endOfTimer ? count : '获取验证码'
     return (
       <div>
@@ -226,12 +232,13 @@ class Home extends React.Component {
           	type="digit"
             {...getFieldProps('code',{
               initialValue: '',
-              rules: [{required: true, message: `不可为空`}],
+              rules: [{required: true, message: `验证码不可为空`}],
             })}
             extra={<Button type="primary" size="small" inline="true" onClick={this.getCode} disabled={endOfTimer}>{endOfTimerTxt}</Button>}
           >验证码</InputItem>
 
         </List>
+        {(errors = getFieldError('code')) ? <span>{errors.join(',')}</span> : null}
         <WhiteSpace />
         <WhiteSpace />
         <WingBlank><span><Button type="primary"  onClick={this.submitHandle} loading={loading} disabled={disabled}>提交</Button></span></WingBlank>
@@ -268,4 +275,4 @@ class Home extends React.Component {
   }
 }
 
-export default createForm()(Home)
+export default createForm()(Login)

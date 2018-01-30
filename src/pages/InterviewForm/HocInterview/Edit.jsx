@@ -1,12 +1,12 @@
 import React from 'react';
-import { List, Button, WingBlank, WhiteSpace, Toast } from 'antd-mobile';
+import { WingBlank, WhiteSpace, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import HIcon from 'components/HIcon';
 import HNavBar from 'components/HNavBar';
 import InterviewContainer from '../InterviewContainer';
 import FormItem from '../FormItem';
 import mockAxios from 'mocks';
-import { resDataFormat, formErrorsMsg, defaultParams } from 'pages/InterviewForm/util';
+import { resDataFormat, defaultParams } from 'pages/InterviewForm/util';
 import educationOriginData from 'mocks/data/education';
 import fetch from 'utils/fetch';
 import { formatFormData } from 'utils';
@@ -42,7 +42,7 @@ class Edit extends React.Component {
     const { params, apiUrl, originData, nameSpace } = this.props
     const url = API[apiUrl];
     const requestParams = assign({},defaultParams(params),{id:params.id})
-    console.log(requestParams,'requestParams1111')
+    // console.log(requestParams,'requestParams1111')
     try {
       const newData = await fetch({url:url,data:requestParams})
       // const basicDetailData = res.data.res

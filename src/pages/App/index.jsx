@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavBar, Icon, Toast} from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import './app.less';
 
 export default class App extends React.Component {
