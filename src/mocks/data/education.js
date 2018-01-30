@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-23 11:47:25
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-29 18:35:18
+* @Last Modified time: 2018-01-30 09:58:35
 */
 export default [
 	{
@@ -11,7 +11,7 @@ export default [
         "column_alias": "school",
         "column_type": "text",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
     },
@@ -21,7 +21,7 @@ export default [
         "column_alias": "major",
         "column_type": "text",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
     },
@@ -31,7 +31,7 @@ export default [
         "column_alias": "education_type",
         "column_type": "select",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
         "options":[
@@ -55,7 +55,7 @@ export default [
         "column_alias": "culture",
         "column_type": "select",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
         "options":[
@@ -99,7 +99,7 @@ export default [
         "column_alias": "degree",
         "column_type": "select",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
         "options":[
@@ -131,7 +131,7 @@ export default [
         "column_alias": "culture_number",
         "column_type": "text",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
     },
@@ -141,7 +141,7 @@ export default [
         "column_alias": "degree_number",
         "column_type": "text",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
     },
@@ -151,7 +151,7 @@ export default [
         "column_alias": "start_at",
         "column_type": "date",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
     },
@@ -161,7 +161,7 @@ export default [
         "column_alias": "end_at",
         "column_type": "date",
         "column_length": 10,
-        "column_values": "",
+        "column_value": "",
         "column_tips": "",
         "is_required": 1,
     }

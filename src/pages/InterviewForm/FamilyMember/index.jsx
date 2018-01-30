@@ -1,6 +1,7 @@
 import React from 'react';
 import List from '../HocInterview/List';
 
+
 const Item = ({item}) => (
   <div>
     <p>{item.fullName}</p> 
@@ -8,9 +9,7 @@ const Item = ({item}) => (
   </div>
 );
 
-
-
-export default class Education extends React.Component {
+export default class Family extends React.Component {
   constructor(props) {
     super(props);
     this.state={
@@ -22,14 +21,14 @@ export default class Education extends React.Component {
   }
 
   render() {
-    
+    const { params } = this.props
     return (
       <List 
-        name='紧急联系人'
-        routeUrl='/emergency'
-        nameSpace='emergency'
-        params={{'template_id':5, template_module_id:5}}
-        apiUrl='INTERVIEW_EMERGENCY'
+        name='家庭信息'
+        routeUrl='/family'
+        nameSpace='family'
+        params={params}
+        apiUrl='INTERVIEW_FAMILY'
         ListItem={Item}
       />
     );

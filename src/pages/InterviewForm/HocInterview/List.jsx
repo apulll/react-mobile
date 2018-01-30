@@ -64,7 +64,7 @@ const ListTpl = (props) => {
           multipleLine 
           onClick={() => {browserHistory.push(editUrl)}}
         >
-          {ListItem}
+          {ListItem({item})}
         </Item>
        </SwipeAction>
     </List>
@@ -106,7 +106,7 @@ export default class InterviewList extends React.Component {
   render() {
     const {list} = this.state;
     const { params, name, routeUrl, ListItem } = this.props
-    console.log(ListItem)
+    console.log(ListItem,'ListItem')
     const addUrl = `${routeUrl}/add/${params.template_id}/${params.template_module_id}`
     return (
       <div>
@@ -135,7 +135,7 @@ InterviewList.propTypes = {
   routeUrl : PropTypes.string,
   params : PropTypes.object,
   apiUrl : PropTypes.string,
-  ListItem: PropTypes.node
+  ListItem: PropTypes.any
 }
 
 InterviewList.defaultProps = {  

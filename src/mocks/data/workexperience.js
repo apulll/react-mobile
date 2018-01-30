@@ -2,7 +2,7 @@
 * @Author: perry
 * @Date:   2018-01-23 19:39:12
 * @Last Modified by:   perry
-* @Last Modified time: 2018-01-24 16:30:12
+* @Last Modified time: 2018-01-30 10:38:43
 */
 export default [
 	{
@@ -78,18 +78,7 @@ export default [
         
         "column_name": "结束日期",
         "column_alias": "end_at",
-        "column_type": "text",
-        "column_length": 10,
-        "column_values": "",
-        "column_tips": "",
-        "is_required": 1,
-    },
-    {
-
-        
-        "column_name": "薪资",
-        "column_alias": "salary",
-        "column_type": "text",
+        "column_type": "date",
         "column_length": 10,
         "column_values": "",
         "column_tips": "",
